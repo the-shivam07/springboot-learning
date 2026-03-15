@@ -218,3 +218,224 @@ In this example we learned how application design evolves:
 4. Spring using annotations for automatic dependency injection
 
 Spring helps developers build **flexible, maintainable, and scalable applications**.
+
+
+
+# Spring Framework Basics – Coupling, Interfaces and Spring Container
+
+## 1. Tight Coupling
+
+Tight coupling occurs when one class directly depends on another class.
+This means if we change one class, we must also change the dependent class.
+
+### Example
+
+If `GameRunner` directly creates `MarioGame`, it becomes tightly coupled.
+
+```java
+public class GameRunner {
+
+    MarioGame game = new MarioGame();
+
+    public void run() {
+        game.up();
+        game.down();
+        game.left();
+        game.right();
+    }
+}
+```
+
+### Problems with Tight Coupling
+
+* Code is not flexible
+* Hard to switch to another implementation
+* Difficult to maintain and extend
+
+---
+
+# 2. Loose Coupling
+
+Loose coupling means classes are **less dependent on each other**.
+
+Instead of depending on a specific class, we depend on an **interface**.
+
+This allows us to easily switch between implementations.
+
+Example:
+
+GameRunner can run **Mario, SuperContra, or Pacman** without changing its code.
+
+---
+
+# 3. Using Interfaces for Loose Coupling
+
+To achieve loose coupling, we create an interface called `GamingConsole`.
+
+### GamingConsole Interface
+
+```java
+package com.in28minutes.learn_spring_framework;
+
+public interface GamingConsole {
+
+    void up();
+    void down();
+    void left();
+    void right();
+
+}
+```
+
+### Example Implementation
+
+```java
+public class MarioGame implements GamingConsole {
+
+    public void up() {
+        System.out.println("Jump");
+    }
+
+    public void down() {
+        System.out.println("Go into hole");
+    }
+
+    public void left() {
+        System.out.println("Move backward");
+    }
+
+    public void right() {
+        System.out.println("Move forward");
+    }
+}
+```
+
+Now we can create other games like:
+
+* SuperContraGame
+* PacmanGame
+
+All implement the same interface.
+
+---
+
+# 4. Spring Container
+
+Spring Container is responsible for:
+
+* Creating objects
+* Managing objects
+* Injecting dependencies
+* Managing lifecycle of beans
+
+In simple words:
+
+Spring container manages **Spring Beans**.
+
+---
+
+# 5. Types of Spring Containers
+
+### 1. BeanFactory
+
+BeanFactory is the **basic Spring container**.
+
+Features:
+
+* Basic dependency injection
+* Lightweight container
+* Suitable for simple applications
+
+---
+
+### 2. ApplicationContext
+
+ApplicationContext is the **advanced Spring container**.
+
+Features:
+
+* Enterprise features
+* Easy integration with web applications
+* Internationalization support
+* Integration with Spring AOP
+
+Most **enterprise applications use ApplicationContext**.
+
+---
+
+# 6. IOC Container (Inversion of Control)
+
+Spring uses an **IOC Container** to manage objects.
+
+Instead of creating objects manually:
+
+```
+new Object()
+```
+
+Spring creates and manages objects automatically.
+
+This concept is called **Inversion of Control (IOC)**.
+
+---
+
+# 7. Questions in Spring (Important Concepts)
+
+### Spring Container vs IOC Container
+
+Both refer to the same concept where Spring manages objects.
+
+---
+
+### Java Bean vs Spring Bean
+
+Java Bean:
+
+* Simple Java class
+* Contains properties and getters/setters
+
+Spring Bean:
+
+* Object managed by Spring Container
+
+---
+
+### How to list all Spring Beans?
+
+We can use ApplicationContext to list all beans.
+
+Example:
+
+```java
+String[] beanNames = context.getBeanDefinitionNames();
+```
+
+---
+
+# 8. Topics Covered in This Lecture
+
+1. Tight Coupling
+2. Loose Coupling
+3. Java Interfaces
+4. Spring Container
+5. Application Context
+6. Basic Spring Annotations
+7. Dependency Injection
+8. Auto Wiring
+9. Java Bean vs Spring Bean
+
+---
+
+# Summary
+
+In this lecture we learned:
+
+* What is Tight Coupling
+* How to achieve Loose Coupling
+* How Interfaces help reduce dependency
+* What is Spring Container
+* Difference between BeanFactory and ApplicationContext
+* Basic understanding of IOC and Dependency Injection
+
+Spring Framework helps developers create **flexible, maintainable, and loosely coupled applications**.
+
